@@ -1,0 +1,27 @@
+services:
+  producer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.producer
+    environment:
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+    depends_on:
+      - kafka
+
+  processor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.processor
+    environment:
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+    depends_on:
+      - kafka
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    ports:
+      - "8501:8501"
+    depends_on:
+      - kafka

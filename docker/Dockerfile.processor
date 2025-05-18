@@ -1,0 +1,13 @@
+# Processor Dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY processors/ processors/
+COPY scripts/ scripts/
+COPY .env .env
+
+CMD ["python", "processors/comment_sentiment_processor.py"]
